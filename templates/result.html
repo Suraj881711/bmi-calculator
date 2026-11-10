@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Result</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #d4fc79, #96e6a1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .result-container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 360px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #444;
+            margin: 10px 0;
+        }
+
+        .category {
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: #09d71d;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0be95c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="result-container">
+        <h2>Result for {{ name }}</h2>
+        <p>🧮 Your BMI is: <strong>{{ bmi }}</strong></p>
+        <p class="category">📊 Category: {{ category }}</p>
+        {% if interpretation %}
+        <p>{{ interpretation }}</p>
+        {% endif %}
+        <p>⚖️ For your height ({{ height }} m), a healthy weight is
+           <strong>{{ healthy_low }} kg – {{ healthy_high }} kg</strong>.</p>
+        <p style="font-size:0.95rem; color:#666;">Your weight: {{ weight }} kg</p>
+        <a href="/">🔁 Calculate Again</a>
+    </div>
+</body>
+
+</html>

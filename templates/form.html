@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #fff5cc, #d0f0c0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #aaa;
+            font-size: 1rem;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: rgb(82, 17, 143);
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ee6b0d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>💪 BMI Calculator</h2>
+        {% if error %}
+        <p style="color:#c0392b; font-weight:bold;">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            <label for="name">Your Name</label>
+            <input type="text" name="name" id="name" required>
+
+            <label for="weight">Weight (kg)</label>
+            <input type="number" name="weight" id="weight" step="0.01" required>
+
+            <label for="height">Height (m)</label>
+            <input type="number" name="height" id="height" step="0.01" placeholder="e.g. 1.70 for 170 cm" required>
+
+            <button type="submit">Calculate BMI</button>
+        </form>
+    </div>
+</body>
+
+</html>
