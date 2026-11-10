@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>BMI Result</title>
+    <title>Your Health Metrics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
             margin: 0;
@@ -11,8 +12,7 @@
             background: linear-gradient(to bottom right, #d4fc79, #96e6a1);
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding: 24px 12px;
         }
 
         .result-container {
@@ -20,53 +20,88 @@
             padding: 30px 40px;
             border-radius: 15px;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 360px;
+            width: 460px;
+            max-width: 100%;
         }
 
-        h2 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        p {
-            font-size: 1.1rem;
-            color: #444;
-            margin: 10px 0;
-        }
+        h2 { margin-bottom: 10px; color: #333; text-align: center; }
+        p { font-size: 1.05rem; color: #444; margin: 8px 0; }
 
         .category {
             font-weight: bold;
             font-size: 1.3rem;
-            color: #09d71d;
+            color: #1e7e34;
+            text-align: center;
         }
-
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            color: #0be95c;
+        .bmi-big {
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 18px 0;
+        }
+        .card {
+            background: #f4fbf2;
+            border: 1px solid #cdeccd;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+        .card .num { font-size: 1.35rem; font-weight: bold; color: #1e7e34; }
+        .card .lbl { font-size: 0.9rem; color: #555; }
+        .links { text-align: center; margin-top: 18px; }
+        .links a {
+            color: #1e7e34;
             text-decoration: none;
             font-weight: bold;
+            margin: 0 8px;
         }
-
-        a:hover {
-            text-decoration: underline;
-        }
+        .links a:hover { text-decoration: underline; }
     </style>
 </head>
 
 <body>
     <div class="result-container">
         <h2>Result for {{ name }}</h2>
-        <p>🧮 Your BMI is: <strong>{{ bmi }}</strong></p>
+        <p class="bmi-big">🧮 Your BMI is: <strong>{{ bmi }}</strong></p>
         <p class="category">📊 Category: {{ category }}</p>
         {% if interpretation %}
         <p>{{ interpretation }}</p>
         {% endif %}
         <p>⚖️ For your height ({{ height }} m), a healthy weight is
            <strong>{{ healthy_low }} kg – {{ healthy_high }} kg</strong>.</p>
-        <p style="font-size:0.95rem; color:#666;">Your weight: {{ weight }} kg</p>
-        <a href="/">🔁 Calculate Again</a>
+        <p style="font-size:0.95rem; color:#666;">Your weight: {{ weight }} kg · Age: {{ age }} · {{ gender|capitalize }}</p>
+
+        <div class="cards">
+            <div class="card">
+                <div class="num">{{ bmr }}</div>
+                <div class="lbl">🔥 BMR (kcal/day)<br>Mifflin-St Jeor</div>
+            </div>
+            <div class="card">
+                <div class="num">{{ tdee }}</div>
+                <div class="lbl">⚡ TDEE (kcal/day)<br>{{ activity_label }}</div>
+            </div>
+            <div class="card">
+                <div class="num">{{ body_fat }}%</div>
+                <div class="lbl">🫀 Body-fat estimate<br>Deurenberg formula</div>
+            </div>
+            <div class="card">
+                <div class="num">{{ calorie_target }}</div>
+                <div class="lbl">🎯 Daily calorie target<br>{{ goal_label }}</div>
+            </div>
+        </div>
+
+        <p style="font-size:0.9rem; color:#666;">
+            BMR/TDEE/body-fat are standard formula estimates, not medical
+            measurements. This result has been saved to your history.
+        </p>
+        <p class="links">
+            <a href="/">🔁 Calculate Again</a>
+            <a href="/history">📜 View History</a>
+        </p>
     </div>
 </body>
 

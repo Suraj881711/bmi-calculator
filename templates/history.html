@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Calculation History — BMI Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #fff5cc, #d0f0c0);
+            display: flex;
+            justify-content: center;
+            padding: 24px 12px;
+        }
+        .box {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            width: 760px;
+            max-width: 100%;
+        }
+        h2 { color: #333; text-align: center; }
+        .trend {
+            background: #f4fbf2;
+            border: 1px solid #cdeccd;
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+            margin-bottom: 18px;
+            font-size: 1.02rem;
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        th, td { border-bottom: 1px solid #e2e2e2; padding: 8px; text-align: left; }
+        th { background: #f7f7f7; }
+        .links { text-align: center; margin-top: 18px; }
+        .links a { color: #1e7e34; font-weight: bold; text-decoration: none; }
+        .links a:hover { text-decoration: underline; }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h2>📜 Calculation History</h2>
+
+        {% if trend %}
+        <div class="trend">
+            <strong>Trend:</strong>
+            {{ trend.count }} calculation(s) ·
+            Average BMI <strong>{{ trend.average_bmi }}</strong> ·
+            First BMI <strong>{{ trend.first_bmi }}</strong> →
+            Latest BMI <strong>{{ trend.latest_bmi }}</strong>
+            (change {% if trend.change > 0 %}+{% endif %}{{ trend.change }})
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date &amp; Time</th><th>Name</th><th>Age/Gender</th>
+                    <th>Weight (kg)</th><th>Height (m)</th><th>BMI</th>
+                    <th>Category</th><th>BMR</th><th>TDEE</th>
+                    <th>Body-fat %</th><th>Target (kcal)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in records %}
+                <tr>
+                    <td>{{ r.created_at }}</td>
+                    <td>{{ r.name }}</td>
+                    <td>{{ r.age }} / {{ r.gender }}</td>
+                    <td>{{ r.weight_kg }}</td>
+                    <td>{{ r.height_m }}</td>
+                    <td><strong>{{ r.bmi }}</strong></td>
+                    <td>{{ r.category }}</td>
+                    <td>{{ r.bmr }}</td>
+                    <td>{{ r.tdee }}</td>
+                    <td>{{ r.body_fat }}</td>
+                    <td>{{ r.calorie_target }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p style="text-align:center;">No calculations yet — run your first one!</p>
+        {% endif %}
+
+        <p class="links"><a href="/">🔁 New Calculation</a></p>
+    </div>
+</body>
+
+</html>
